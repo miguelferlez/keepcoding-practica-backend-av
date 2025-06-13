@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= appName %></title>
-    <link rel="stylesheet" href="/stylesheets/output.css" />
-    <link
-      rel="shortcut icon"
-      href="/assets/app-favicon.svg"
-      type="image/x-icon"
-    />
-  </head>
-  <body class="bg-gray-100 text-center">
-    <h1 class="text-4xl font-bold text-blue-600 mt-10">
-      ¡H, Express con EJS y Tailwind!
+<%- include("layout/header.ejs") %>
+<body>
+  <main class="container mx-auto px-4 mb-8">
+    <h1 class="text-4xl font-bold text-blue-600">
+      ¡Hi, Express with EJS & Tailwind!
     </h1>
-  </body>
-</html>
+  </main>
+</body>
+<%- include("layout/footer.ejs") %>
