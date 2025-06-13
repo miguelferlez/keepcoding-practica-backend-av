@@ -18,7 +18,9 @@
   <body>
     <h1 class="sr-only"><%= appName %></h1>
     <header class="container mx-auto px-4 mb-8">
-      <div class="border-b-1 border-b-gray-200 py-4 flex justify-between">
+      <div
+        class="border-b-1 border-b-gray-200 py-4 flex justify-between items-center"
+      >
         <a href="/" class="transition hover:opacity-75">
           <span class="sr-only">Home</span>
           <img src="/assets/app-logo.svg" alt="logo" class="h-10" />
@@ -28,13 +30,21 @@
             <option value="ES">🇪🇸</option>
             <option value="EN">🇬🇧</option>
           </select>
-          <button>Log In</button>
+          <button class="group btn">Log In</button>
         </div>
       </div>
       <nav class="border-b-1 border-b-gray-200 py-4 flex justify-between">
-        <ul class="flex flex-col sm:flex-row gap-4">
-          <li><a href="#">New product</a></li>
-          <li><a href="#">API documentation</a></li>
+        <ul class="flex flex-col sm:flex-row gap-6 sm:gap-4">
+          <li class="flex">
+            <a href="" class="navlink">New product</a>
+          </li>
+
+          <li>
+            <a href="#" class="navlink">API documentation</a>
+          </li>
+          <li class="flex">
+            <a href="#" class="navlink">Download</a>
+          </li>
         </ul>
       </nav>
     </header>
