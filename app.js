@@ -3,14 +3,31 @@ import path from "node:path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import createError from "http-errors";
+import * as home from "./controllers/homeController.js";
 
 const app = express();
+
+/**
+ * View engine setup
+ */
+
+app.set("views", "views");
+app.set("view engine", "ejs");
+
+app.locals.appName = "Nodepop";
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
+
+//TODO: api routes
+
+/**
+ * Web application routes
+ */
+app.get("/", home.index);
 
 /**
  * Catch 404 and forward to error handler

@@ -1,18 +1,23 @@
 {
   "name": "nodepop",
   "version": "0.0.0",
-  "private": true,
+  "main": "./bin/server.js",
   "type": "module",
   "scripts": {
-    "start": "node ./bin/server.js"
+    "dev": "nodemon ./bin/server.js",
+    "start": "node ./bin/server.js",
+    "initDB": "node ./bin/initDB.js"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.1.10",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^4.21.2",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
