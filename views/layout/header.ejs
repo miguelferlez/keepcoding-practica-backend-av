@@ -9,41 +9,49 @@
       href="/assets/app-favicon.svg"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="/stylesheets/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
   </head>
   <body>
     <h1 class="sr-only"><%= appName %></h1>
-    <header class="container mx-auto px-4 mb-8">
-      <div
-        class="border-b-1 border-b-gray-200 py-4 flex justify-between items-center"
-      >
+    <header class="wrapper mb-8">
+      <div class="border-b-1 border-b-gray-200 py-4 flex justify-between">
         <a href="/" class="transition hover:opacity-75">
           <span class="sr-only">Home</span>
           <img src="/assets/app-logo.svg" alt="logo" class="h-10" />
         </a>
         <div class="flex gap-4">
-          <select name="" id="">
+          <select name="lang" id="lang" class="border-0 text-gray-500">
+            <option values="EN" selected>🇬🇧</option>
             <option value="ES">🇪🇸</option>
-            <option value="EN">🇬🇧</option>
           </select>
           <button class="group btn">Log In</button>
         </div>
       </div>
-      <nav class="border-b-1 border-b-gray-200 py-4 flex justify-between">
+      <nav
+        class="border-b-1 border-b-gray-200 py-4 flex justify-between items-center"
+      >
         <ul class="flex flex-col sm:flex-row gap-6 sm:gap-4">
-          <li class="flex">
-            <a href="" class="navlink">New product</a>
+          <li>
+            <div class="flex gap-1 text-gray-300">
+              <span class="material-symbols-outlined">assignment_ind</span>
+              <p>User</p>
+            </div>
           </li>
-
+          <li>
+            <a href="#" class="navlink">New product</a>
+          </li>
           <li>
             <a href="#" class="navlink">API documentation</a>
-          </li>
-          <li class="flex">
-            <a href="#" class="navlink">Download</a>
           </li>
         </ul>
       </nav>

@@ -11,3 +11,12 @@
 .navlink {
   @apply inline-block font-medium text-gray-500 transition hover:scale-110 hover:opacity-75;
 }
+
+.wrapper {
+  @apply container mx-auto px-4 sm:px-25;
+}
+
+.heading-1 {
+  font-family: "Funnel Display", sans-serif;
+  @apply text-4xl font-extrabold mb-4 text-gray-500;
+}
