@@ -1,4 +1,5 @@
 import "dotenv/config";
+import "./loadEnv.js";
 import http from "node:http";
 import app from "../app.js";
 
