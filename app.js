@@ -3,7 +3,12 @@ import path from "node:path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import createError from "http-errors";
-import * as home from "./controllers/homeController.js";
+import connectMongoose from "./lib/connectMongoose.js";
+import * as homeController from "./controllers/homeController.js";
+import * as productsApi from "./api/productsAPI.js";
+
+await connectMongoose();
+console.log("Connected to MongoDB");
 
 const app = express();
 
@@ -22,12 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
-//TODO: api routes
+/**
+ * API routes
+ */
+
+app.get("/api/products", productsApi.getProducts);
 
 /**
  * Web application routes
  */
-app.get("/", home.index);
+app.get("/", homeController.index);
 
 /**
  * Catch 404 and forward to error handler
@@ -42,6 +51,8 @@ app.use(function (req, res, next) {
  */
 
 app.use(function (err, req, res, next) {
+  /* Validation errors */
+
   if (err.array) {
     err.message =
       "Invalid request: " +
@@ -57,7 +68,12 @@ app.use(function (err, req, res, next) {
 
   res.status(err.status || 500);
 
-  //TODO: json response for /api/ errors
+  /* API errors */
+
+  if (req.url.startsWith("/api/")) {
+    res.json({ error: err.message });
+    return;
+  }
 
   res.locals.message = err.message;
   res.locals.error = process.env.APP_ENV === "development" ? err : {};
