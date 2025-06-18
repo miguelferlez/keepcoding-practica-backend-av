@@ -3,7 +3,7 @@
   <main class="wrapper mb-8">
     <h2 class="heading-1">My products</h2>
     <% if (session.userId) { %>
-    <ul class="flex flex-col gap-4 min-h-80 mb-4">
+    <ul class="flex flex-col gap-4 mb-4">
       <% products.forEach(product => { %>
       <li><%- include("ui/card.ejs", { product }) %></li>
       <% }); %>
