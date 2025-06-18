@@ -2,6 +2,7 @@
 <body>
   <main class="wrapper mb-8">
     <h2 class="heading-1">My products</h2>
+    <% if (session.userId) { %>
     <ul class="flex flex-col gap-4 min-h-80 mb-4">
       <% products.forEach(product => { %>
       <li><%- include("ui/card.ejs", { product }) %></li>
@@ -22,6 +23,12 @@
         <% } %>
       </ul>
     </nav>
+    <% } else { %>
+    <div class="flex gap-1 text-red-500 mt-6 h-[calc(100vh-280px)]">
+      <span class="material-symbols-outlined">error</span>
+      <p>You must be logged in to access this functionality.</p>
+    </div>
+    <% } %>
   </main>
 </body>
 <%- include("layout/footer.ejs") %>

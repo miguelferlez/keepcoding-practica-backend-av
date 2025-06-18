@@ -43,8 +43,9 @@ app.use(sessionManager.userSession);
 app.use(sessionManager.setSessionInViews);
 app.get("/", homeController.index);
 app.get("/login", loginController.index);
-app.get("/:page?", homeController.index);
 app.post("/login", loginController.logIn);
+app.get("/logout", loginController.logOut);
+app.get("/:page?", homeController.index);
 
 /**
  * Catch 404 and forward to error handler

@@ -2,6 +2,8 @@ import Product from "../models/Product.js";
 
 export async function index(req, res, next) {
   try {
+    const userId = req.session.userId;
+
     /* Pagination */
 
     const page = parseInt(req.query.page) || 1;
@@ -11,12 +13,13 @@ export async function index(req, res, next) {
     /* Filters */
 
     const sort = req.query.sort;
-    const filter = {};
+    const filter = { owner: userId };
 
     const products = await Product.list(filter, limit, skip, sort);
     const total = await Product.find(filter).countDocuments();
 
     res.locals.products = products;
+    res.locals.username = req.session.username;
     res.locals.productsTotal = total;
     res.locals.paginationCurrent = page;
     res.locals.paginationTotal = Math.ceil(total / limit);
