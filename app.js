@@ -6,6 +6,7 @@ import createError from "http-errors";
 import connectMongoose from "./lib/connectMongoose.js";
 import * as homeController from "./controllers/homeController.js";
 import * as loginController from "./controllers/loginController.js";
+import * as sessionManager from "./lib/sessionManager.js";
 import * as productsApi from "./api/productsAPI.js";
 
 await connectMongoose();
@@ -37,6 +38,9 @@ app.get("/api/products", productsApi.getProducts);
 /**
  * Web application routes
  */
+
+app.use(sessionManager.userSession);
+app.use(sessionManager.setSessionInViews);
 app.get("/", homeController.index);
 app.get("/login", loginController.index);
 app.get("/:page?", homeController.index);
