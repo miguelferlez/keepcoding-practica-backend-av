@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= appName %></title>
+    <link
+      rel="shortcut icon"
+      href="/assets/app-favicon.svg"
+      type="image/x-icon"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0"
+    />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
+  </head>
+  <body>
+    <main class="flex justify-center items-center w-screen h-screen">
+      <div
+        class="relative mx-auto w-full max-w-md px-6 pt-10 pb-8 xs:shadow-xl xs:ring-1 ring-gray-900/5 sm:px-10"
+      >
+        <h2 class="heading-1 text-center mb-5">Log in</h2>
+        <form method="post">
+          <div class="relative mt-6">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email
+            address"
+              value="<%= email %>"
+              class="peer mt-1 w-full border-b-1 border-gray-200 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
+              required
+            />
+            <label
+              for="email"
+              class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800"
+              >Email address *</label
+            >
+          </div>
+          <div class="relative mt-6">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              class="peer peer mt-1 w-full border-b-1 border-gray-200 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
+              required
+            />
+            <label
+              for="password"
+              class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800"
+              >Password *</label
+            >
+          </div>
+          <div class="my-6">
+            <button type="submit" class="btn w-full flex justify-center">
+              Submit
+            </button>
+          </div>
+          <a href="/" class="btn-outline flex justify-center text-center"
+            >Go back to home page</a
+          >
+        </form>
+        <% if (error) { %>
+        <div class="flex gap-1 justify-center text-red-500 mt-6">
+          <span class="material-symbols-outlined">error</span>
+          <p><%= error %></p>
+        </div>
+        <% } %>
+      </div>
+    </main>
+  </body>
+</html>

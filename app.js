@@ -5,6 +5,7 @@ import logger from "morgan";
 import createError from "http-errors";
 import connectMongoose from "./lib/connectMongoose.js";
 import * as homeController from "./controllers/homeController.js";
+import * as loginController from "./controllers/loginController.js";
 import * as productsApi from "./api/productsAPI.js";
 
 await connectMongoose();
@@ -37,7 +38,9 @@ app.get("/api/products", productsApi.getProducts);
  * Web application routes
  */
 app.get("/", homeController.index);
+app.get("/login", loginController.index);
 app.get("/:page?", homeController.index);
+app.post("/login", loginController.logIn);
 
 /**
  * Catch 404 and forward to error handler
