@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon ./bin/server.js",
     "start": "node ./bin/server.js",
-    "initDB": "node ./bin/initDB.js"
+    "initDB": "node ./bin/initDB.js",
+    "style": "npx @tailwindcss/cli -i ./public/stylesheets/custom.css -o ./public/stylesheets/output.css --watch"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.10",

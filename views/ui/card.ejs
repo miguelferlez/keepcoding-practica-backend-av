@@ -1,0 +1,30 @@
+<div
+  class="flex gap-2 xs:gap-8 border-1 border-gray-200 p-4 items-center justify-between"
+>
+  <div class="flex gap-4 items-center grow sm:grow-0 sm:w-96">
+    <img
+      src="<%= product.image ? product.image : `/images/product-placeholder.jpg` %>"
+      class="size-20 min-w-20 min-h-20 object-cover rounded-sm"
+    />
+    <div>
+      <p class="xs:mb-1 text-xs sm:text-base"><%= product.name %></p>
+      <div class="flex gap-1 flex-wrap">
+        <% product.tags.forEach(tag => { %>
+        <p
+          class="p-1 hidden xs:block text-[8px] sm:text-xs bg-gray-200 rounded-sm"
+        >
+          #<%= tag %>
+        </p>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+  <span class="font-bold text-xs sm:text-base sm:w-24"
+    >$<%= product.price.toFixed(2) %></span
+  >
+  <div class="flex gap-2">
+    <button class="flex text-red-500">
+      <span class="material-symbols-outlined">delete_forever</span>
+    </button>
+  </div>
+</div>

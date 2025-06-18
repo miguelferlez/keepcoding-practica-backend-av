@@ -2,6 +2,11 @@
 <body>
   <main class="wrapper mb-8">
     <h1 class="heading-1">My products</h1>
+    <ul class="flex flex-col gap-4 min-h-80">
+      <% products.forEach(product => { %>
+      <li><%- include("ui/card.ejs", { product }) %></li>
+      <% }); %>
+    </ul>
   </main>
 </body>
 <%- include("layout/footer.ejs") %>
