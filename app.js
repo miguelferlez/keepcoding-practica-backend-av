@@ -37,6 +37,7 @@ app.get("/api/products", productsApi.getProducts);
  * Web application routes
  */
 app.get("/", homeController.index);
+app.get("/:page?", homeController.index);
 
 /**
  * Catch 404 and forward to error handler

@@ -2,11 +2,26 @@
 <body>
   <main class="wrapper mb-8">
     <h1 class="heading-1">My products</h1>
-    <ul class="flex flex-col gap-4 min-h-80">
+    <ul class="flex flex-col gap-4 min-h-80 mb-4">
       <% products.forEach(product => { %>
       <li><%- include("ui/card.ejs", { product }) %></li>
       <% }); %>
     </ul>
+    <p class="text-gray-500">Total: <%= productsTotal %> products.</p>
+    <nav aria-label="page navigation">
+      <ul class="flex justify-center gap-1">
+        <% for (let i = 1; i <= paginationTotal; i++) { %>
+        <li class=" ">
+          <a
+            class="group <%= paginationCurrent === i ? 'btn' : 'btn-outline' %>"
+            href="/?page=<%= i %>"
+          >
+            <%= i %>
+          </a>
+        </li>
+        <% } %>
+      </ul>
+    </nav>
   </main>
 </body>
 <%- include("layout/footer.ejs") %>
