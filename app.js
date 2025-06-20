@@ -6,6 +6,7 @@ import createError from "http-errors";
 import connectMongoose from "./lib/connectMongoose.js";
 import * as homeController from "./controllers/homeController.js";
 import * as loginController from "./controllers/loginController.js";
+import * as productsController from "./controllers/productsController.js";
 import * as sessionManager from "./lib/sessionManager.js";
 import * as productsApi from "./api/productsAPI.js";
 
@@ -45,6 +46,7 @@ app.get("/", homeController.index);
 app.get("/login", loginController.index);
 app.post("/login", loginController.logIn);
 app.get("/logout", loginController.logOut);
+app.get("/products/new", productsController.index);
 app.get("/:page?", homeController.index);
 
 /**
@@ -69,7 +71,7 @@ app.use(function (err, req, res, next) {
         .array()
         .map(
           (error) =>
-            `${error.location} ${error.type} ${error.path} ${error.msg}`
+            `${error.location} ${error.type} ${error.path} ${error.msg}`,
         )
         .join(", ");
     err.status = 422;

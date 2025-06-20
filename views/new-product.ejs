@@ -1,1 +1,82 @@
-<%- include("layout/header.ejs") %> <%- include("layout/footer.ejs") %>
+<%- include("layout/header.ejs") %>
+<body>
+  <main class="wrapper mb-8">
+    <h2 class="heading-1">Upload new product</h2>
+    <% if (error) { %>
+    <div class="flex gap-1 justify-center text-red-500 mt-6">
+      <span class="material-symbols-outlined">error</span>
+      <p><%= error %></p>
+    </div>
+    <% } %>
+    <form method="post" enctype="multipart/form-data">
+      <div class="relative mb-2">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Product name"
+          class="peer mt-1 w-full border-b-1 border-gray-200 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
+          required
+          maxlength="80"
+          aria-describedby="name-help"
+        />
+        <label
+          for="name"
+          class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800 font-medium"
+        >
+          Name *
+        </label>
+      </div>
+      <%- include("ui/form-help.ejs", { helpId: "name-help", helpText: "Max length 80 characters." }) %>
+      <div class="relative mb-2">
+        <input
+          type="number"
+          name="price"
+          id="price"
+          placeholder="1.00"
+          class="peer mt-1 w-full border-b-1 border-gray-200 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
+          required
+          min="1"
+          max="99999"
+          step="0.10"
+          aria-describedby="price-help"
+        />
+        <label
+          for="price"
+          class="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800 font-medium"
+        >
+          Price *
+        </label>
+      </div>
+      <%- include("ui/form-help.ejs", { helpId: "price-help", helpText: "Price range limit from $1.00 to $99999.99." }) %> 
+      <div class="flex flex-col md:flex-row">
+        <div class="md:grow">
+          <p class="mb-2 text-gray-400 font-medium">Tags *</p>
+          <div class="mb-2 lg:mb-4 flex flex-col flex-wrap gap-4 sm:flex-row sm:gap-6 sm:gap-y-3">
+            <%- include("ui/form-checkbox.ejs", { name:"tags", value: "lifestyle", labelText: "Lifestyle" }) %> 
+            <%- include("ui/form-checkbox.ejs", { name:"tags", value: "motor", labelText: "Motor" }) %> 
+            <%- include("ui/form-checkbox.ejs", { name:"tags", value: "work", labelText:"Work" }) %> 
+            <%- include("ui/form-checkbox.ejs", { name:"tags", value: "mobile", labelText: "Mobile" }) %>
+          </div>
+          <%- include("ui/form-help.ejs", { helpId: "tag-help", helpText: "Check at least one tag." }) %>
+        </div>
+        <div class="flex flex-col gap-0.5 md:grow">
+          <label for="photo" class="text-gray-400 font-medium">Image</label>
+          <input 
+            type="file" 
+            id="photo" 
+            name="photo" 
+            class="block w-full text-gray-500 file:me-4 file:py-2 file:px-4 file:border-0 file:text-sm file:bg-gray-400 file:text-white hover:file:bg-gray-500 file:disabled:opacity-50 file:disabled:pointer-events-none border border-gray-200 rounded-md mb-1.5"
+            accept="image"
+            aria-describedby="photo-help"
+          />
+          <%- include("ui/form-help.ejs", { helpId: "photo-help", helpText: "Allowed formats: PNG or JPG" }) %>
+        </div>
+      </div>
+      <div class="flex justify-end my-2">
+        <button type="submit" class="btn flex justify-center">Submit</button>
+      </div>
+    </form>
+  </main>
+</body>
+<%- include("layout/footer.ejs") %>
