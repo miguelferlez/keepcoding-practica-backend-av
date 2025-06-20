@@ -9,6 +9,7 @@ import * as loginController from "./controllers/loginController.js";
 import * as productsController from "./controllers/productsController.js";
 import * as sessionManager from "./lib/sessionManager.js";
 import * as productsApi from "./api/productsAPI.js";
+import upload from "./lib/uploadStorage.js";
 
 await connectMongoose();
 console.log("Connected to MongoDB");
@@ -47,6 +48,11 @@ app.get("/login", loginController.index);
 app.post("/login", loginController.logIn);
 app.get("/logout", loginController.logOut);
 app.get("/products/new", productsController.index);
+app.post(
+  "/products/new",
+  upload.single("image"),
+  productsController.createProduct
+);
 app.get("/:page?", homeController.index);
 
 /**
@@ -71,7 +77,7 @@ app.use(function (err, req, res, next) {
         .array()
         .map(
           (error) =>
-            `${error.location} ${error.type} ${error.path} ${error.msg}`,
+            `${error.location} ${error.type} ${error.path} ${error.msg}`
         )
         .join(", ");
     err.status = 422;

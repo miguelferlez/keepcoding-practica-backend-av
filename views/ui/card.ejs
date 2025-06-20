@@ -3,7 +3,7 @@
 >
   <div class="flex gap-4 items-center grow sm:grow-0 sm:w-96">
     <img
-      src="<%= product.image ? product.image : `/images/product-placeholder.jpg` %>"
+      src="<%= product.image ? `/images/${product.image}` : `/images/product-placeholder.jpg` %>"
       class="size-20 min-w-20 min-h-20 object-cover rounded-sm"
     />
     <div>

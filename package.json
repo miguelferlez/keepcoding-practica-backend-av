@@ -23,6 +23,7 @@
     "http-errors": "~1.6.3",
     "mongoose": "^8.15.2",
     "morgan": "~1.9.1",
+    "multer": "^2.0.1",
     "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
