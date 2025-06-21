@@ -1,4 +1,5 @@
 import Product from "../models/Product.js";
+import path from "node:path";
 
 export function index(req, res, next) {
   res.locals.error = "";
@@ -17,7 +18,6 @@ export async function createProduct(req, res, next) {
     });
     product.price = product.price.toFixed(2);
     product.tags = product.tags?.filter((tag) => !!tag);
-    console.log(req.file.filename);
 
     await product.save();
 

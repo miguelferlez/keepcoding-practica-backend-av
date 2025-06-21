@@ -1,5 +1,4 @@
 import express from "express";
-import path from "node:path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import createError from "http-errors";
@@ -9,7 +8,7 @@ import * as loginController from "./controllers/loginController.js";
 import * as productsController from "./controllers/productsController.js";
 import * as sessionManager from "./lib/sessionManager.js";
 import * as productsApi from "./api/productsAPI.js";
-import upload from "./lib/uploadStorage.js";
+import { upload, createThumbnail } from "./lib/uploadStorage.js";
 
 await connectMongoose();
 console.log("Connected to MongoDB");
@@ -51,6 +50,7 @@ app.get("/products/new", productsController.index);
 app.post(
   "/products/new",
   upload.single("image"),
+  createThumbnail,
   productsController.createProduct
 );
 app.get("/:page?", homeController.index);
