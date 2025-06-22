@@ -19,10 +19,12 @@ export async function index(req, res, next) {
     const products = await Product.list(filter, limit, skip, sort);
     const total = await Product.find(filter).countDocuments();
 
+    /* Use thumbnail as image if available */
+
     for (let product of products) {
       if (product.image) {
         const thumbnail = product.image.replace(/\.(?=[^.]+$)/, "_thumbnail.");
-        if (existsSync(`public/images/${thumbnail}`)) {
+        if (existsSync(`${process.env.PRODUCT_IMAGE_DIR}/${thumbnail}`)) {
           product.image = thumbnail;
         }
       } else {

@@ -1,10 +1,11 @@
 import { Schema, model } from "mongoose";
+import { MAX_CHARS, MAX_PRICE, MIN_PRICE } from "../lib/utils.js";
 
 const productSchema = new Schema(
   {
-    name: String,
+    name: { type: String, maxLength: MAX_CHARS, required: true },
     owner: { ref: "User", type: Schema.Types.ObjectId, index: true },
-    price: { type: Number, min: 1, max: 99999 },
+    price: { type: Number, min: MIN_PRICE, max: MAX_PRICE, required: true },
     image: String,
     tags: [String],
   },
