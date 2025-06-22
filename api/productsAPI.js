@@ -1,8 +1,6 @@
-import path from "node:path";
 import createError from "http-errors";
 import { unlink } from "node:fs/promises";
 import Product from "../models/Product.js";
-import { log } from "node:console";
 
 export async function getProducts(req, res, next) {
   try {
@@ -23,8 +21,25 @@ export async function getProducts(req, res, next) {
 
     res.json(result);
   } catch (error) {
-    console.log(error);
+    next(error);
+  }
+}
 
+export async function createProduct(req, res, next) {
+  try {
+    const userId = req.apiUserId;
+    const productData = req.body;
+
+    const product = new Product({
+      ...productData,
+      image: req.file?.filename,
+      owner: userId,
+    });
+
+    const savedProduct = await product.save();
+
+    res.status(201).json({ result: savedProduct });
+  } catch (error) {
     next(error);
   }
 }

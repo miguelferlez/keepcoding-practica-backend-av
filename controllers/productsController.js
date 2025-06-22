@@ -1,5 +1,4 @@
 import Product from "../models/Product.js";
-import path from "node:path";
 
 export function index(req, res, next) {
   res.locals.error = "";
