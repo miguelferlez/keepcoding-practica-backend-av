@@ -8,6 +8,7 @@ import * as loginController from "./controllers/loginController.js";
 import * as productsController from "./controllers/productsController.js";
 import * as sessionManager from "./lib/sessionManager.js";
 import * as productsApi from "./api/productsAPI.js";
+import * as userApi from "./api/userAPI.js";
 import { upload, createThumbnail } from "./lib/uploadStorage.js";
 import { guard } from "./lib/jwtAuth.js";
 
@@ -36,8 +37,9 @@ app.use(express.static("public"));
  */
 
 app.get("/api/products", guard, productsApi.getProducts);
+app.post("/api/login", userApi.logIn);
 app.post(
-  "api/products",
+  "/api/products",
   guard,
   upload.single("image"),
   createThumbnail,
