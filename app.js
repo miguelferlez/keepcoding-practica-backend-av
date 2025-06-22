@@ -45,6 +45,7 @@ app.post(
   createThumbnail,
   productsApi.createProduct
 );
+app.get("/api/products/:productId", guard, productsApi.getProductById);
 
 /**
  * Web application routes

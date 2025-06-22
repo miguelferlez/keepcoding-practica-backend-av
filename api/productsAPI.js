@@ -12,14 +12,26 @@ export async function getProducts(req, res, next) {
     const withCount = req.query.count === "true";
 
     const products = await Product.list(filter, limit, skip, sort, fields);
-    const result = { results: products };
 
     if (withCount) {
       const count = await Product.countDocuments(filter);
       result.total = count;
     }
 
-    res.json(result);
+    res.json({ results: products });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getProductById(req, res, next) {
+  try {
+    const userId = req.apiUserId;
+    const productId = req.params.productId;
+
+    const product = await Product.findOne({ _id: productId, owner: userId });
+
+    res.json({ results: product });
   } catch (error) {
     next(error);
   }
