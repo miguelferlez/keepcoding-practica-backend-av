@@ -9,6 +9,7 @@ import * as productsController from "./controllers/productsController.js";
 import * as sessionManager from "./lib/sessionManager.js";
 import * as productsApi from "./api/productsAPI.js";
 import { upload, createThumbnail } from "./lib/uploadStorage.js";
+import { guard } from "./lib/jwtAuth.js";
 
 await connectMongoose();
 console.log("Connected to MongoDB");
@@ -34,7 +35,14 @@ app.use(express.static("public"));
  * API routes
  */
 
-app.get("/api/products", productsApi.getProducts);
+app.get("/api/products", guard, productsApi.getProducts);
+app.post(
+  "api/products",
+  guard,
+  upload.single("image"),
+  createThumbnail,
+  productsApi.createProduct
+);
 
 /**
  * Web application routes
@@ -46,9 +54,10 @@ app.get("/", homeController.index);
 app.get("/login", loginController.index);
 app.post("/login", loginController.logIn);
 app.get("/logout", loginController.logOut);
-app.get("/products/new", productsController.index);
+app.get("/products/new", sessionManager.guard, productsController.index);
 app.post(
   "/products/new",
+  sessionManager.guard,
   upload.single("image"),
   createThumbnail,
   productsController.createProduct
