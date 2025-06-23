@@ -6,12 +6,43 @@ export async function getProducts(req, res, next) {
   try {
     const userId = req.apiUserId;
 
-    const filter = { owner: userId };
+    /* Pagination */
+
     const limit = req.query.limit;
     const skip = req.query.skip;
+
+    /* Filters */
+
     const sort = req.query.sort;
+    const filter = { owner: userId };
+    const filterByName = req.query.name;
+    const filterByPriceMin = req.query.min;
+    const filterByPriceMax = req.query.max;
+    const filterByTags = req.query.tags;
+
+    /* Views */
+
     const fields = req.query.fields;
     const withCount = req.query.count === "true";
+
+    if (filterByName) {
+      filter.name = { $regex: filterByName, $options: "i" };
+    }
+
+    if (filterByPriceMin) {
+      filter.price = { ...filter.price, $gte: Number(filterByPriceMin) };
+    }
+
+    if (filterByPriceMax) {
+      filter.price = { ...filter.price, $lte: Number(filterByPriceMax) };
+    }
+
+    if (filterByTags) {
+      const tags = Array.isArray(filterByTags)
+        ? filterByTags
+        : filterByTags.split(",");
+      filter.tags = { $in: tags };
+    }
 
     const products = await Product.list(filter, limit, skip, sort, fields);
     const results = { results: products };

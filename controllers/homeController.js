@@ -15,6 +15,29 @@ export async function index(req, res, next) {
 
     const sort = req.query.sort;
     const filter = { owner: userId };
+    const filterByName = req.query.name;
+    const filterByPriceMin = req.query.min;
+    const filterByPriceMax = req.query.max;
+    const filterByTags = req.query.tags;
+
+    if (filterByName) {
+      filter.name = { $regex: filterByName, $options: "i" };
+    }
+
+    if (filterByPriceMin) {
+      filter.price = { ...filter.price, $gte: Number(filterByPriceMin) };
+    }
+
+    if (filterByPriceMax) {
+      filter.price = { ...filter.price, $lte: Number(filterByPriceMax) };
+    }
+
+    if (filterByTags) {
+      const tags = Array.isArray(filterByTags)
+        ? filterByTags
+        : filterByTags.split(",");
+      filter.tags = { $in: tags };
+    }
 
     const products = await Product.list(filter, limit, skip, sort);
     const total = await Product.find(filter).countDocuments();
