@@ -46,6 +46,7 @@ app.post(
   productsApi.createProduct
 );
 app.get("/api/products/:productId", guard, productsApi.getProductById);
+app.delete("/api/products/:productId", guard, productsApi.deleteProduct);
 
 /**
  * Web application routes
@@ -64,6 +65,11 @@ app.post(
   upload.single("image"),
   createThumbnail,
   productsController.createProduct
+);
+app.get(
+  "/products/delete/:productId",
+  sessionManager.guard,
+  productsController.deleteProduct
 );
 app.get("/:page?", homeController.index);
 

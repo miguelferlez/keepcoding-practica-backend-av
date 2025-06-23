@@ -1,7 +1,6 @@
 <div
   class="flex gap-2 xs:gap-8 border-1 border-gray-200 p-4 items-center justify-between"
 >
-<%#= product.image ? `/images/${product.image}` : `/images/product-placeholder.jpg` %>
   <div class="flex gap-4 items-center grow sm:grow-0 sm:w-96">
     <img
       src="<%= `/images/${product.image}`%> "
@@ -24,10 +23,11 @@
     >$<%= product.price.toFixed(2) %></span
   >
   <div class="flex gap-2">
-    <button
+    <a
+      href="/products/delete/<%= product._id %>"
       class="flex text-red-500 transition hover:opacity-75 cursor-pointer"
     >
       <span class="material-symbols-outlined">delete_forever</span>
-    </button>
+  </a>
   </div>
 </div>
