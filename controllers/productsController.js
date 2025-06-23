@@ -1,8 +1,14 @@
 import { unlink } from "node:fs";
 import Product from "../models/Product.js";
 import path from "node:path";
+import { MAX_CHARS, MAX_PRICE, MIN_PRICE } from "../lib/utils.js";
 
 export function index(req, res, next) {
+  res.locals.error = "";
+  res.locals.MAX_CHARS = MAX_CHARS;
+  res.locals.MAX_PRICE = MAX_PRICE;
+  res.locals.MIN_PRICE = MIN_PRICE;
+
   res.render("new-product");
 }
 

@@ -11,7 +11,7 @@
           placeholder="Product name"
           class="peer mt-1 w-full border-b-1 border-gray-200 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
           required
-          maxlength="80"
+          maxlength="<%= MAX_CHARS %> "
           aria-describedby="name-help"
         />
         <label
@@ -21,7 +21,7 @@
           Name *
         </label>
       </div>
-      <%- include("ui/form-help.ejs", { helpId: "name-help", helpText: "Max length 80 characters." }) %>
+      <%- include("ui/form-help.ejs", { helpId: "name-help", helpText: `Max length ${MAX_CHARS} characters` }) %>
       <div class="relative mb-2">
         <input
           type="number"
@@ -30,8 +30,8 @@
           placeholder="1.00"
           class="peer mt-1 w-full border-b-1 border-gray-200 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
           required
-          min="1"
-          max="99999.99"
+          min="<%= MIN_PRICE %>"
+          max="<%= MAX_PRICE %>" 
           step="0.01"
           aria-describedby="price-help"
         />
@@ -42,7 +42,7 @@
           Price *
         </label>
       </div>
-      <%- include("ui/form-help.ejs", { helpId: "price-help", helpText: "Price range limit from $1.00 to $99999.99." }) %> 
+      <%- include("ui/form-help.ejs", { helpId: "price-help", helpText: `Price range limit from $${MIN_PRICE.toFixed(2)} to $${MAX_PRICE.toFixed(2)}` }) %> 
       <div class="flex flex-col md:flex-row">
         <div class="md:grow">
           <p class="mb-2 text-gray-400 font-medium">Tags *</p>
