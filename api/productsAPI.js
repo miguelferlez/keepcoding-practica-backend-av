@@ -136,3 +136,28 @@ async function deleteProductImage(product) {
     unlink(thumbnailPath);
   }
 }
+
+export async function updateProduct(req, res, next) {
+  try {
+    const userId = req.apiUserId;
+    const productId = req.params.productId;
+    const productData = req.body;
+
+    productData.image = req.file?.filename;
+
+    const updatedProduct = await Product.findOneAndUpdate(
+      {
+        _id: productId,
+        owner: userId,
+      },
+      productData,
+      {
+        new: true,
+      }
+    );
+
+    res.json({ result: updatedProduct });
+  } catch (error) {
+    next(error);
+  }
+}

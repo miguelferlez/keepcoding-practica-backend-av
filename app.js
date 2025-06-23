@@ -47,6 +47,13 @@ app.post(
 );
 app.get("/api/products/:productId", guard, productsApi.getProductById);
 app.delete("/api/products/:productId", guard, productsApi.deleteProduct);
+app.put(
+  "/api/products/:productId",
+  guard,
+  upload.single("image"),
+  createThumbnail,
+  productsApi.updateProduct
+);
 
 /**
  * Web application routes
