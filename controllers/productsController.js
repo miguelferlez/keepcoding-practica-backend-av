@@ -1,6 +1,8 @@
-import { unlink } from "node:fs";
-import Product from "../models/Product.js";
+import { existsSync } from "node:fs";
+import { unlink } from "node:fs/promises";
 import path from "node:path";
+import createError from "http-errors";
+import Product from "../models/Product.js";
 import { MAX_CHARS, MAX_PRICE, MIN_PRICE } from "../lib/utils.js";
 
 export function index(req, res, next) {
@@ -55,7 +57,7 @@ export async function deleteProduct(req, res, next) {
     }
 
     if (product.image) {
-      await deleteProductImage(product, next);
+      deleteProductImage(product);
     }
     await Product.deleteOne({ _id: productId, owner: userId });
 
@@ -65,17 +67,15 @@ export async function deleteProduct(req, res, next) {
   }
 }
 
-async function deleteProductImage(product, cb) {
+async function deleteProductImage(product) {
   const imagePath = `${process.env.PRODUCT_IMAGE_DIR}/${product.image}`;
   const extension = path.extname(product.image);
   const imageName = path.basename(product.image, extension);
-  const thumbnailPath =
-    `${process.env.PRODUCT_IMAGE_DIR}/${imageName}_thumbnail${extension}` ??
-    null;
+  const thumbnailPath = `${process.env.PRODUCT_IMAGE_DIR}/${imageName}_thumbnail${extension}`;
 
-  unlink(imagePath, cb);
+  await unlink(imagePath);
 
-  if (thumbnailPath) {
-    unlink(thumbnailPath, cb);
+  if (existsSync(thumbnailPath)) {
+    await unlink(thumbnailPath);
   }
 }
