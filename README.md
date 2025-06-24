@@ -80,7 +80,7 @@ npm run style
 
 ### API
 
-API endpoints available in http://localhost:3000/api-doc
+API endpoints available in http://localhost:3000/api-docs
 
 - `/api/login`
   - **POST**: returns user's JSON Web Token after sending correct email and password to log in API.
