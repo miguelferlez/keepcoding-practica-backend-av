@@ -42,11 +42,11 @@
                 class="absolute right-0 w-16 p-2 mt-4 origin-top-right bg-white border border-gray-200 shadow-md outline-none" 
                 role="menu"
               >
-                <ul class="flex flex-col gap-1">
-                  <li>
+                <ul class="flex flex-col gap-1 text-gray-500 font-medium">
+                  <li class="<%= getLocale() === "en" ? "opacity-50 pointer-events-none" : "" %>">
                     <a href="/locales/<%= getLocales()[0] %>">🇬🇧 <%= getLocales()[0].toUpperCase() %></a>
                   </li>
-                  <li>
+                  <li class="<%= getLocale() === "es" ? "opacity-50 pointer-events-none" : "" %>">
                     <a href="/locales/<%= getLocales()[1] %>">🇪🇸 <%= getLocales()[1].toUpperCase() %></a>
                   </li>
                 </ul>
