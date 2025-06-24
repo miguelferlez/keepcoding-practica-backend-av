@@ -30,14 +30,33 @@
           <img src="/assets/app-logo.svg" alt="logo" class="h-10" />
         </a>
         <div class="flex gap-4">
-          <select name="lang" id="lang" class="border-0 text-gray-500">
-            <option values="EN" selected>🇬🇧</option>
-            <option value="ES">🇪🇸</option>
-          </select>
+          <div class="dropdown flex items-center">
+            <button 
+              class="flex items-center p-1 text-gray-500 transition-opacity hover:opacity-75" 
+              type="button"
+            >
+              <span class="material-symbols-outlined">language</span>
+            </button>
+            <div class="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
+              <div 
+                class="absolute right-0 w-16 p-2 mt-4 origin-top-right bg-white border border-gray-200 shadow-md outline-none" 
+                role="menu"
+              >
+                <ul class="flex flex-col gap-1">
+                  <li>
+                    <a href="/locales/<%= getLocales()[0] %>">🇬🇧 <%= getLocales()[0].toUpperCase() %></a>
+                  </li>
+                  <li>
+                    <a href="/locales/<%= getLocales()[1] %>">🇪🇸 <%= getLocales()[1].toUpperCase() %></a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+          </div>
           <% if (session.userId) { %>
-          <a class="group btn" href="/logout">Log Out</a>
+          <a class="group btn" href="/logout"><%= __("Log Out") %></a>
           <% } else { %>
-          <a class="group btn-outline" href="/login">Log In</a>
+          <a class="group btn-outline" href="/login"><%= __("Log In") %></a>
           <% } %>
         </div>
       </div>
@@ -53,10 +72,10 @@
             </div>
           </li>
           <li>
-            <a href="/products/new" class="navlink">New product</a>
+            <a href="/products/new" class="navlink"><%= __("New product") %></a>
           </li>
           <li>
-            <a href="#" class="navlink">API documentation</a>
+            <a href="#" class="navlink"><%= __("API documentation") %></a>
           </li>
         </ul>
       </nav>

@@ -14,7 +14,7 @@ export async function logIn(req, res, next) {
     const user = await User.findOne({ email });
 
     if (!user || !(await user.comparePassword(password))) {
-      res.locals.error = "Invalid credentials";
+      res.locals.error = res.__("Invalid credentials");
       res.locals.email = email;
 
       res.render("login");

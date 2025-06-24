@@ -11,6 +11,8 @@ import * as productsApi from "./api/productsAPI.js";
 import * as userApi from "./api/userAPI.js";
 import { upload, createThumbnail } from "./lib/uploadStorage.js";
 import { guard } from "./lib/jwtAuth.js";
+import i18n from "./lib/i18nConfig.js";
+import changeLocale from "./controllers/localeController.js";
 
 await connectMongoose();
 console.log("Connected to MongoDB");
@@ -61,6 +63,8 @@ app.put(
 
 app.use(sessionManager.userSession);
 app.use(sessionManager.setSessionInViews);
+app.get("/locales/:locale", changeLocale);
+app.use(i18n.init);
 app.get("/", homeController.index);
 app.get("/login", loginController.index);
 app.post("/login", loginController.logIn);

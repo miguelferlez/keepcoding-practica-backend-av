@@ -1,14 +1,14 @@
 <%- include("layout/header.ejs") %>
 <body>
   <main class="wrapper mb-8">
-    <h2 class="heading-1">My products</h2>
+    <h2 class="heading-1"><%= __("My products") %></h2>
     <% if (session.userId) { %>
     <ul class="flex flex-col gap-4 mb-4">
       <% products.forEach(product => { %>
       <li><%- include("ui/card.ejs", { product }) %></li>
       <% }); %>
     </ul>
-    <p class="text-gray-500">Total: <%= productsTotal %> products.</p>
+    <p class="text-gray-500">Total: <%= productsTotal %> <%= __("products") %>.</p>
     <nav aria-label="page navigation">
       <ul class="flex justify-center gap-1">
         <% for (let i = 1; i <= paginationTotal; i++) { %>
@@ -26,7 +26,7 @@
     <% } else { %>
     <div class="flex gap-1 text-red-500 mt-6 h-[calc(100vh-280px)]">
       <span class="material-symbols-outlined">error</span>
-      <p>You must be logged in to access this functionality.</p>
+      <p><%= __("You must be logged in to access this functionality.") %></p>
     </div>
     <% } %>
   </main>
