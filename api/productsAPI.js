@@ -149,7 +149,6 @@ export async function getProducts(req, res, next) {
  *         required: true
  *         schema:
  *           type: string
- *         description: Unique product id
  *     responses:
  *       200:
  *         content:
@@ -185,10 +184,75 @@ export async function getProductById(req, res, next) {
   }
 }
 
+/**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     security:
+ *       - tokenAuth: []
+ *     tags:
+ *       - Products
+ *     description: Creates and returns a new product associated to the logged user.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - price
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 maxLength: 80
+ *                 description: Max length `80` characters
+ *               price:
+ *                 type: number
+ *                 format: float
+ *                 minimum: 1.0
+ *                 maximum: 99999.99
+ *                 description: Price range from `1.00` to `99999.99`
+ *               tags:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   enum:
+ *                     - lifestyle
+ *                     - motor
+ *                     - work
+ *                     - mobile
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   $ref: './models/Product'
+ *       400:
+ *         description: Invalid input or missing required fields
+ *       500:
+ *         description: Internal server error
+ *
+ */
 export async function createProduct(req, res, next) {
   try {
     const userId = req.apiUserId;
     const productData = req.body;
+
+    if (
+      typeof productData.tags === "string" &&
+      productData.tags.trim().length > 0
+    ) {
+      productData.tags.replace(/\s/g, "").split(",");
+    } else {
+      productData.tags = undefined;
+    }
 
     const product = new Product({
       ...productData,
