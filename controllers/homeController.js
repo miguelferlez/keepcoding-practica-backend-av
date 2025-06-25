@@ -61,6 +61,10 @@ export async function index(req, res, next) {
     res.locals.paginationCurrent = page;
     res.locals.paginationTotal = Math.ceil(total / limit);
 
+    if (req.query.page > res.locals.paginationTotal) {
+      res.redirect(`/?page=${res.locals.paginationTotal}`);
+    }
+
     res.render("home");
   } catch (error) {
     next(error);

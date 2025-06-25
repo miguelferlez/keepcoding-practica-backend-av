@@ -61,7 +61,7 @@ export async function deleteProduct(req, res, next) {
     }
     await Product.deleteOne({ _id: productId, owner: userId });
 
-    res.redirect("/");
+    res.redirect(req.get("Referrer") || "/");
   } catch (err) {
     next(err);
   }
