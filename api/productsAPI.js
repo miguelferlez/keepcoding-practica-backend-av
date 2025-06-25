@@ -1,6 +1,8 @@
 import createError from "http-errors";
 import { unlink } from "node:fs/promises";
 import Product from "../models/Product.js";
+import path from "node:path";
+import { existsSync } from "node:fs";
 
 /**
  * @swagger
@@ -142,7 +144,7 @@ export async function getProducts(req, res, next) {
  *       - tokenAuth: []
  *     tags:
  *       - Products
- *     description: Returns a product associated to an id.
+ *     description: Returns a product associated to its ID.
  *     parameters:
  *       - in: path
  *         name: productId
@@ -163,7 +165,7 @@ export async function getProducts(req, res, next) {
  *       404:
  *         description: Product not found
  *       500:
- *         description: Server error
+ *         description: Internal server error
  */
 export async function getProductById(req, res, next) {
   try {
@@ -268,6 +270,31 @@ export async function createProduct(req, res, next) {
   }
 }
 
+/**
+ * @swagger
+ * /api/products/{productId}:
+ *   delete:
+ *     security:
+ *       - tokenAuth: []
+ *     tags:
+ *       - Products
+ *     description: Remove a product associated to its ID. Images and thumbnails linked to the product are also locally deleted.
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Product successfully deleted
+ *       401:
+ *         description: Unauthorized (user is not the owner of the product)
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */
 export async function deleteProduct(req, res, next) {
   try {
     const userId = req.apiUserId;
@@ -310,16 +337,87 @@ async function deleteProductImage(product) {
 
   unlink(imagePath);
 
-  if (thumbnailPath) {
+  if (existsSync(thumbnailPath)) {
     unlink(thumbnailPath);
   }
 }
 
+/**
+ * @swagger
+ * /api/products/{productId}:
+ *   put:
+ *     security:
+ *       - tokenAuth: []
+ *     tags:
+ *       - Products
+ *     description: Updates and returns the product associated to its ID with the new data.
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - price
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 maxLength: 80
+ *                 description: Max length `80` characters
+ *               price:
+ *                 type: number
+ *                 format: float
+ *                 minimum: 1.0
+ *                 maximum: 99999.99
+ *                 description: Price range from `1.00` to `99999.99`
+ *               tags:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   enum:
+ *                     - lifestyle
+ *                     - motor
+ *                     - work
+ *                     - mobile
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 result:
+ *                   $ref: './models/Product'
+ *       400:
+ *         description: Invalid input or missing required fields
+ *       500:
+ *         description: Internal server error
+ *
+ */
 export async function updateProduct(req, res, next) {
   try {
     const userId = req.apiUserId;
     const productId = req.params.productId;
     const productData = req.body;
+
+    if (
+      typeof productData.tags === "string" &&
+      productData.tags.trim().length > 0
+    ) {
+      productData.tags.replace(/\s/g, "").split(",");
+    } else {
+      productData.tags = undefined;
+    }
 
     productData.image = req.file?.filename;
 
