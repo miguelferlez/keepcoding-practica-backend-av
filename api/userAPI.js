@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import createError from "http-errors";
 import jwt from "jsonwebtoken";
+import process from "node:process";
 
 /**
  * @swagger

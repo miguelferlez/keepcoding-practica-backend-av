@@ -14,6 +14,7 @@ import { guard } from "./lib/jwtAuth.js";
 import i18n from "./lib/i18nConfig.js";
 import changeLocale from "./controllers/localeController.js";
 import swaggerConfig from "./lib/swaggerConfig.js";
+import process from "node:process";
 
 await connectMongoose();
 console.log("Connected to MongoDB");

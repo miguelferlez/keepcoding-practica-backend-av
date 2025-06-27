@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { unlink } from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
 import createError from "http-errors";
 import Product from "../models/Product.js";
 import { MAX_CHARS, MAX_PRICE, MIN_PRICE } from "../lib/utils.js";

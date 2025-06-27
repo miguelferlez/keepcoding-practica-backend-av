@@ -3,6 +3,7 @@ import { unlink } from "node:fs/promises";
 import Product from "../models/Product.js";
 import path from "node:path";
 import { existsSync } from "node:fs";
+import process from "node:process";
 
 /**
  * @swagger
@@ -331,9 +332,7 @@ async function deleteProductImage(product) {
   const imagePath = `${process.env.PRODUCT_IMAGE_DIR}/${product.image}`;
   const extension = path.extname(product.image);
   const imageName = path.basename(product.image, extension);
-  const thumbnailPath =
-    `${process.env.PRODUCT_IMAGE_DIR}/${imageName}_thumbnail${extension}` ??
-    null;
+  const thumbnailPath = `${process.env.PRODUCT_IMAGE_DIR}/${imageName}_thumbnail${extension}`;
 
   unlink(imagePath);
 

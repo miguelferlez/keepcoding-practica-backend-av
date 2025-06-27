@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import { existsSync } from "node:fs";
+import process from "node:process";
 
 export async function index(req, res, next) {
   try {
