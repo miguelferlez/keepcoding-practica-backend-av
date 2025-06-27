@@ -24,8 +24,8 @@
   "motor": "motor",
   "work": "trabajo",
   "mobile": "móvil",
-  "Max length 80 characters": "Longitud máxima 80 caracteres",
-  "Price range limit from $1.00 to $99999.99": "Rango de precio desde $1.00 a $99999.99",
+  "Max length {{num}} characters": "Longitud máxima {{num}} caracteres",
+  "Price range limit from $ {{min}} to $ {{max}}": "Rango de precio desde $ {{min}} a $ {{max}}",
   "Allowed formats: PNG or JPG": "Formatos permitidos: PNG o JPG",
   "All rights reserved": "Todos los derechos reservados"
 }

@@ -21,7 +21,7 @@
           <%= __("Name") %> *
         </label>
       </div>
-      <%- include("ui/form-help.ejs", { helpId: "name-help", helpText: `Max length ${MAX_CHARS} characters` }) %>
+      <%- include("ui/form-help.ejs", { helpId: "name-help", helpText: __(`Max length {{num}} characters`, {num: MAX_CHARS}) }) %>
       <div class="relative mb-2">
         <input
           type="number"
@@ -42,7 +42,7 @@
           <%= __("Price") %> *
         </label>
       </div>
-      <%- include("ui/form-help.ejs", { helpId: "price-help", helpText: `Price range limit from $${MIN_PRICE.toFixed(2)} to $${MAX_PRICE.toFixed(2)}` }) %> 
+      <%- include("ui/form-help.ejs", { helpId: "price-help", helpText: __(`Price range limit from $ {{min}} to $ {{max}}`, {min: MIN_PRICE.toFixed(2), max: MAX_PRICE.toFixed(2)}) }) %> 
       <div class="flex flex-col md:flex-row">
         <div class="md:grow">
           <p class="mb-2 text-gray-400 font-medium"><%= __("Tags") %></p>
