@@ -78,7 +78,7 @@ app.post(
   "/products/new",
   sessionManager.guard,
   upload.single("image"),
-  createThumbnail,
+  // createThumbnail,
   productsController.createProduct
 );
 app.get(

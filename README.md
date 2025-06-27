@@ -39,7 +39,7 @@ cp .env.example .env
 
 Make sure to **check the new .env values** to match your configuration.
 
-Use a cloud provider like [MongoDB Atlas](https://www.mongodb.com/atlas) or install and set up [MongoDB](https://www.mongodb.com/try) instance:
+Use a database cloud provider like [MongoDB Atlas](https://www.mongodb.com/atlas) or install and set up [MongoDB](https://www.mongodb.com/try) instance:
 
 - Windows: install .exe
 - Linux/Mac:
@@ -54,6 +54,15 @@ Use a cloud provider like [MongoDB Atlas](https://www.mongodb.com/atlas) or inst
 ```sh
 npm run initDB
 ```
+
+Set up a RabbitMQ server on [CloudAMQP](https://www.cloudamqp.com/) or install [Docker](https://docs.docker.com/engine/install) to locally init a RabbitMQ server in order to be able to create new product image thumbnails:
+
+```sh
+# for example
+docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
+```
+
+Make sure to check `RABBITMQ_URL` env value to match your configuration.
 
 ## Usage
 
@@ -71,6 +80,12 @@ Make use of testing users already defined in `bin/initDB.js`:
 
 - `admin@example.com, 1234`
 - `user1@example.com, 1234`
+
+Run `createThumbnailConsumer` service to upload the generated image thumbnail after creating a new product:
+
+```sh
+node ./services/createThumbnailConsumer.js
+```
 
 (Optional) Run TailwindCSS to apply custom styles in this project:
 

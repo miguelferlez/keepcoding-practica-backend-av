@@ -5,6 +5,7 @@ import process from "node:process";
 import createError from "http-errors";
 import Product from "../models/Product.js";
 import { MAX_CHARS, MAX_PRICE, MIN_PRICE } from "../lib/utils.js";
+import publishThumbnail from "../services/createThumbnailPublisher.js";
 
 export function index(req, res, next) {
   res.locals.error = "";
@@ -29,6 +30,11 @@ export async function createProduct(req, res, next) {
     product.tags = product.tags?.filter((tag) => !!tag);
 
     await product.save();
+
+    if (req.file) {
+      const imagePath = `${process.env.PRODUCT_IMAGE_DIR}/${product.image}`;
+      await publishThumbnail(imagePath);
+    }
 
     res.redirect("/");
   } catch (error) {
