@@ -5,7 +5,7 @@ import amqp from "amqplib";
 import process from "node:process";
 import { QUEUE_NAME, EXCHANGE_NAME } from "../lib/utils.js";
 
-const connection = await amqp.connect(process.env.RABBITMQ_URL);
+const connection = await amqp.connect(process.env.RABBITMQ_URI);
 const channel = await connection.createChannel();
 
 await channel.assertQueue(QUEUE_NAME, { durable: true });

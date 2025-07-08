@@ -4,7 +4,7 @@ import process from "node:process";
 import { EXCHANGE_NAME } from "../lib/utils.js";
 
 async function publishThumbnail(imagePath) {
-  const connection = await amqp.connect(process.env.RABBITMQ_URL);
+  const connection = await amqp.connect(process.env.RABBITMQ_URI);
   const channel = await connection.createChannel();
 
   await channel.assertExchange(EXCHANGE_NAME, "direct", { durable: true });

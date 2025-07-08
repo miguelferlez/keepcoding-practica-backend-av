@@ -62,7 +62,7 @@ Set up a RabbitMQ server on [CloudAMQP](https://www.cloudamqp.com/) or install [
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4-management
 ```
 
-Make sure to check `RABBITMQ_URL` env value to match your configuration.
+Make sure to check `RABBITMQ_URI` env value to match your configuration.
 
 ## Usage
 
