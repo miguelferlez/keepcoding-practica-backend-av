@@ -4,12 +4,18 @@
 
 **Nodepop** is a practice project of the **KeepCoding** module _Advanced Backend Development with Node.js_.
 
+> [!NOTE]
+> For **KeepCoding** module _DevOps_ practice:
+>
+> - [Public DNS (Nodejs practice)](http://ec2-52-3-126-71.compute-1.amazonaws.com)
+> - [Public IP (React practice)](http://52.3.126.71)
+
 ## 📌 Table of Contents
 
 - [Description](#description)
-- [Author](#author)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Author](#author)
 
 ## Description
 
